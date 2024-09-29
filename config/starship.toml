@@ -13,5 +13,5 @@ success_symbol = '[❯](bold green)' # The 'success_symbol' segment is being set
 # disabled = true
 
 [directory]
-truncation_symbol = '.../'
+truncation_symbol = '[.../](bold green)'
 
