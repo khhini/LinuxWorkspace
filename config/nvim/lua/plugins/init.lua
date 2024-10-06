@@ -36,7 +36,8 @@ return {
         "json", "yaml", "python",
         "sql", "promql", "dockerfile",
         "go", "graphql", "helm", "hcl",
-        "angular", "todotxt", "toml", "bash"
+        "angular", "todotxt", "toml", "bash",
+        "prisma"
   		},
       highlight = {
         enable = true
