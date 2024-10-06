@@ -20,4 +20,12 @@ M.ui = {
   }
  }
 
+M.term = {
+  float = {
+    row = 0.25,
+    width = 0.5,
+    height = 0.5,
+  }
+}
+
 return M
