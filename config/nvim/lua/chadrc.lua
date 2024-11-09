@@ -22,8 +22,9 @@ M.ui = {
 
 M.term = {
   float = {
-    row = 0.25,
-    width = 0.5,
+    row = 0.2,
+    col  = 0.05,
+    width = 0.9,
     height = 0.5,
   }
 }

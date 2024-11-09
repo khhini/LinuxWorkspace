@@ -46,14 +46,14 @@ for _, lsp in ipairs(servers) do
     capabilities = nvlsp.capabilities,
     settings = {
       ["rust-analyzer"] = {
-            cargo = {
-                loadOutDirsFromCheck = true,
-                allFeatures = true,
-            },
-            procMacro = {
-                enable = true,
-            },
+        cargo = {
+          loadOutDirsFromCheck = true,
+          allFeatures = true,
         },
+        procMacro = {
+          enable = true,
+        },
+      },
     }
   }
 end

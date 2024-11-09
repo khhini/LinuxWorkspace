@@ -39,6 +39,9 @@ return {
         "angular", "todotxt", "toml", "bash",
         "prisma"
   		},
+
+      auto_install = true,
+
       highlight = {
         enable = true
       }
