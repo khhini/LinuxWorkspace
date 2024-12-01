@@ -46,9 +46,15 @@ for _, lsp in ipairs(servers) do
     capabilities = nvlsp.capabilities,
     settings = {
       ["rust-analyzer"] = {
+        imports ={
+          prefix = "self"
+        },
         cargo = {
           loadOutDirsFromCheck = true,
           allFeatures = true,
+        },
+        checkOnSave = {
+          command = "clippy"
         },
         procMacro = {
           enable = true,

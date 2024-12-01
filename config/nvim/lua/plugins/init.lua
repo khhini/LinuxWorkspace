@@ -13,7 +13,6 @@ return {
     end,
   },
 
-
   {
     "nvim-tree/nvim-tree.lua",
     config = function ()
