@@ -1,0 +1,26 @@
+FROM python:3.11-slim as builder
+
+WORKDIR /app
+# Set environment variables to make Python output unbuffered and enable Python to run in Docker.
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
+
+# Install dependencies.
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy project.
+# COPY . .
+COPY . /app
+
+FROM gcr.io/distroless/python3-debian12
+WORKDIR /app
+
+COPY --from=builder /app /app
+COPY --from=builder /usr/local/lib/python3.11/site-packages /usr/local/lib/python3.11/site-packages
+COPY --from=builder /usr/local/bin /usrl/local/bin
+
+ENV PYTHONPATH /usr/local/lib/python3.11/site-packages
+
+# Command to run the application.
+CMD ["main.py"]

@@ -1,0 +1,28 @@
+version: '3.8'
+services:
+  grafana:
+    image: grafana/grafana-oss
+    container_name: grafana
+    restart: always
+    ports:
+      - 3100:3000
+    volumes:
+      - "$PWD/data/grafana:/var/lib/grafana"
+    networks:
+      - devops
+
+  loki:
+    image: grafana/loki
+    container_name: loki
+    command: --config.file=/mnt/config/loki-config.yaml
+    restart: always
+    volumes:
+      - "$PWD/config/loki:/mnt/config/"
+    networks:
+      - devops
+    ports:
+      - 3101:3100
+
+networks:
+  devops:
+    name: devops-net

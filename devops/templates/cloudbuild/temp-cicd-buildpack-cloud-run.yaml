@@ -1,0 +1,59 @@
+steps:
+  
+
+  - name: gcr.io/cloud-builders/docker
+    id: Push Image
+    args:
+      - push
+      - --all-tags
+      - ${_ARTIFACT_REGISTRY_URI}/${_APP_NAME}/${_APP_SERVICE}
+
+  - name: gcr.io/cloud-builders/gcloud
+    id: Deploy Cloud Run
+    args:
+      - run
+      - deploy
+      - ${_APP_NAME}-${_APP_SERVICE}-crs
+      # - --allow-unauthenticated
+      - --image=${_ARTIFACT_REGISTRY_URI}/${_APP_NAME}/${_APP_SERVICE}:$SHORT_SHA
+      - --project=${_CLOUD_RUN_PROJECT_ID}
+      - --region=${_CLOUD_RUN_REGION}
+      - --vpc-connector=${_CLOUD_RUN_VPC_CONNECTOR}
+      # - --ingress=${_CLOUD_RUN_INGRESS}
+      # - --cpu=${_CLOUD_RUN_CPU}
+      # - --memory=${_CLOUD_RUN_MEMORY}
+      # - --min-instances=${_CLOUD_RUN_MIN_INSTANCES}
+      # - --max-instances=${_CLOUD_RUN_MAX_INSTANCES}
+      # - --concurrency=${_CLOUD_RUN_CONNCURENCY}
+      - --service-account=${_CLOUD_RUN_SERVICE_ACCOUNT}
+      # SET ENV VARIABLE TO CLOUD RUN
+
+substitutions:
+  # DEPLOYMENT CONFIG
+  _APP_NAME: # TODO: Tobe Defined
+  _APP_SERVICE: # TODO: Tobe Defined
+  _CLOUD_RUN_PROJECT_ID: # TODO: Tobe Defined
+  _CLOUD_RUN_REGION: # TODO: Tobe Defined
+  _CLOUD_RUN_SERVICE_ACCOUNT: ${_APP_NAME}-${_APP_SERVICE}-sa@${_CLOUD_RUN_PROJECT_ID}.iam.gserviceaccount.com
+  _CLOUD_RUN_VPC_CONNECTOR: projects/${_CLOUD_RUN_PROJECT_ID}/locations/${_CLOUD_RUN_REGION}/connectors/serverless-vpc-conn
+  _CLOUD_RUN_INGRESS: all
+  # _CLOUD_RUN_CPU: "1"
+  # _CLOUD_RUN_MEMORY: 512Mi
+  # _CLOUD_RUN_MIN_INSTANCES: "0"
+  # _CLOUD_RUN_MAX_INSTANCES: "10"
+  # _CLOUD_RUN_CONNCURENCY: "80"
+  _ARTIFACT_REGISTRY_URI: asia-southeast2-docker.pkg.dev/${_CLOUD_RUN_PROJECT_ID}/cloud-deploy  
+
+  # APP ENV
+  _APP_ENV: # TODO: Tobe Defined
+
+  # APP SCRET ENV
+  
+  # NOTIFICATION CONFIG
+  _COMMIT_USER: $(csr.refUpdateEvent.email)
+  _COMMIT_URL: https://source.cloud.google.com/${PROJECT_ID}/${REPO_NAME}/+/${COMMIT_SHA}
+  # _ADDITIONAL_RECIPIENTS: example@gmail.com,  
+
+options:
+  dynamicSubstitutions: true
+  logging: CLOUD_LOGGING_ONLY

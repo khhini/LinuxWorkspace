@@ -1,0 +1,6 @@
+local-devops-tool/data
+terraform/projects/*
+terraform/secrets/*
+*.terraform
+*.terraform*
+*.tfstate
