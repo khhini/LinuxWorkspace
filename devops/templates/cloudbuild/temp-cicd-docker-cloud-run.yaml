@@ -1,9 +1,11 @@
 steps:
+  -
   - name: gcr.io/cloud-builders/docker    
     args:
       - build
       - -f=deployments/docker/Dockerfile
-      - -t=${_ARTIFACT_REGISTRY_URI}/${_APP_NAME}/${_APP_SERVICE}:$SHORT_SHA
+      - -t=${_ARTIFACT_REGISTRY_URI}/${_APP_NAME}/${_APP_SERVICE}:$_IMAGE_TAG
+      - -t=${_ARTIFACT_REGISTRY_URI}/${_APP_NAME}/${_APP_SERVICE}:$COMMIT_SHA
       - -t=${_ARTIFACT_REGISTRY_URI}/${_APP_NAME}/${_APP_SERVICE}:latest
       - '.'
 
@@ -21,7 +23,7 @@ steps:
       - deploy
       - ${_APP_NAME}-${_APP_SERVICE}-crs
       # - --allow-unauthenticated
-      - --image=${_ARTIFACT_REGISTRY_URI}/${_APP_NAME}/${_APP_SERVICE}:$SHORT_SHA
+      - --image=${_ARTIFACT_REGISTRY_URI}/${_APP_NAME}/${_APP_SERVICE}:$_IMAGE_TAG
       - --project=${_CLOUD_RUN_PROJECT_ID}
       - --region=${_CLOUD_RUN_REGION}
       - --vpc-connector=${_CLOUD_RUN_VPC_CONNECTOR}
@@ -32,9 +34,16 @@ steps:
       # - --max-instances=${_CLOUD_RUN_MAX_INSTANCES}
       # - --concurrency=${_CLOUD_RUN_CONNCURENCY}
       - --service-account=${_CLOUD_RUN_SERVICE_ACCOUNT}
-      # SET ENV VARIABLE TO CLOUD RUN
+      # BUILD METADATA
+      - --set-env-vars=VERSION=${_IMAGE_TAG}
+      - --set-env-vars=COMMIT_URL=${_COMMIT_URL}
+      # APPLICATION ENV
+      - --set-env-vars=ENV=${_APP_ENV}
+
 
 substitutions:
+  # BUILD CONFIG
+  _IMAGE_TAG: ${BRANCH_NAME//\//-}-${SHORT_SHA}
   # DEPLOYMENT CONFIG
   _APP_NAME: # TODO: Tobe Defined
   _APP_SERVICE: # TODO: Tobe Defined

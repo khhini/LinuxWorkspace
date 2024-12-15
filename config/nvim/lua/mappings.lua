@@ -21,5 +21,8 @@ end, { desc = "Toggle inlay hint"}
 
 map("i", "jk", "<ESC>")
 
+map("n", "<leader>lg", "<cmd>LazyGit<cr>", { desc = "Open LazyGit"})
 
+map("n", "<leader>oy", "<cmd>Yazi<cr>", { desc = "Open Yazi"})
+map("n", "<leader>ty", "<cmd>Yazi toggle<cr>", { desc = "Open Yazi on current dir"})
 -- map({ "n", "i", "v" }, "<C-s>", "<cmd> w <cr>")
