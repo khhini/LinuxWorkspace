@@ -4,17 +4,11 @@ steps:
     entrypoint: pack
     args:
       - build
-      - ${_ARTIFACT_REGISTRY_URI}/${_APP_NAME}/${_APP_SERVICE}:${_IMAGE_TAG}
+      - ${_ARTIFACT_REGISTRY_URI}/${_APP_NAME}/${_APP_SERVICE}
+      - '--tag=${_ARTIFACT_REGISTRY_URI}/${_APP_NAME}/${_APP_SERVICE}:${_IMAGE_TAG}'
+      - '--tag=${_ARTIFACT_REGISTRY_URI}/${_APP_NAME}/${_APP_SERVICE}:$COMMIT_SHA'   
       - '--builder=gcr.io/buildpacks/builder:v1'
       - '--path=.'
-
-  - name: gcr.io/cloud-builders/docker
-    id: Add latest tag
-    args:
-      - tag
-      - ${_ARTIFACT_REGISTRY_URI}/${_APP_NAME}/${_APP_SERVICE}:${_IMAGE_TAG}
-      - ${_ARTIFACT_REGISTRY_URI}/${_APP_NAME}/${_APP_SERVICE}:$COMMIT_SHA
-      - ${_ARTIFACT_REGISTRY_URI}/${_APP_NAME}/${_APP_SERVICE}:latest
 
   - name: gcr.io/cloud-builders/docker
     id: Push Image
