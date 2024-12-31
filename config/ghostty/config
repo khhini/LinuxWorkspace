@@ -1,0 +1,38 @@
+
+# Fonts
+font-family = RobotoMono Nerd Font
+font-size = 12
+
+# Themes
+theme = Dark Pastel
+
+# Window
+# gtk-single-instance = true
+# gtk-tabs-location = bottom
+# gtk-wide-tabs = false
+window-padding-y = 0
+window-padding-x = 10
+# window-padding-balance = true
+# window-theme = system
+window-decoration = true
+unfocused-split-opacity = 0.5
+
+# Background
+background-opacity = 0.8
+background-blur-radius = 20
+# background = #000000
+
+# Keybindings
+keybind = super+ctrl+h=goto_split:left
+keybind = super+ctrl+j=goto_split:bottom
+keybind = super+ctrl+k=goto_split:top
+keybind = super+ctrl+l=goto_split:right
+
+keybind = super+ctrl+alt+h=resize_split:left,10
+keybind = super+ctrl+alt+j=resize_split:down,10
+keybind = super+ctrl+alt+k=resize_split:up,10
+keybind = super+ctrl+alt+l=resize_split:right,10
+
+# MacOs Config
+macos-option-as-alt = true
+macos-titlebar-style = tabs
