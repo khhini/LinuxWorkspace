@@ -10,15 +10,14 @@ theme = Dark Pastel
 # gtk-single-instance = true
 # gtk-tabs-location = bottom
 # gtk-wide-tabs = false
-window-padding-y = 0
 window-padding-x = 10
-# window-padding-balance = true
+window-padding-balance = true
 # window-theme = system
 window-decoration = true
 unfocused-split-opacity = 0.5
 
 # Background
-background-opacity = 0.8
+background-opacity = 0.85
 background-blur-radius = 20
 # background = #000000
 
