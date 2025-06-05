@@ -22,7 +22,7 @@ local servers = {
   -- SQL
   "postgres_lsp", "sqlls",
   -- Pythom
-  "pyright",
+  "pyright", "ruff",
   -- Docker
   "dockerls", "docker_compose_language_service",
   -- Markdown
@@ -34,7 +34,7 @@ local servers = {
   -- NGINX
   "nginx_language_server",
   -- YAML
-  "yamlls"
+  "yamlls",
 }
 
 local nvlsp = require "nvchad.configs.lspconfig"
@@ -46,28 +46,6 @@ for _, lsp in ipairs(servers) do
     on_init = nvlsp.on_init,
     capabilities = nvlsp.capabilities,
   }
-
-  if lsp == "rust_analyzer" then
-    -- ## Setup for rust-analyzer
-    server_config.settings = {
-      -- Note: The key is 'rust-analyzer' (with a hyphen)
-      ['rust_analyzer'] = {
-        imports = {
-          prefix = "self"
-        },
-        cargo = {
-          loadOutDirsFromCheck = true,
-          allFeatures = true,
-        },
-        checkOnSave = {
-          command = "clippy"
-        },
-        procMacro = {
-          enable = true,
-        },
-      }
-    }
-  end
 
   lspconfig[lsp].setup(server_config)
 end
