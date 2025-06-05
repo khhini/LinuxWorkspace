@@ -15,6 +15,19 @@ return {
         rust = "html",
       },
     },
+    dependencies = {
+      {
+        "folke/lazydev.nvim",
+        ft = "lua", -- only load on lua files
+        opts = {
+          library = {
+            -- See the configuration section for more details
+            -- Load luvit types when the `vim.uv` word is found
+            { path = "${3rd}/luv/library", words = { "vim%.uv" } },
+          },
+        },
+      },
+    },
     config = function()
       require "configs.lspconfig"
     end,
@@ -78,15 +91,6 @@ return {
       },
     }
   },
-  {
-  "khhini/markdown-preview.nvim",
-    cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
-    build = "cd app && yarn install",
-    init = function()
-      vim.g.mkdp_filetypes = { "markdown" }
-    end,
-    ft = { "markdown" },
-  },
 
   {
     "rest-nvim/rest.nvim",
@@ -103,5 +107,97 @@ return {
       end,
       "nvim-lua/plenary.nvim"
     }
-  }
+  },
+
+  {
+    'mrcjkb/rustaceanvim',
+    version = '^6', -- Recommended
+    lazy = false, -- This plugin is already lazy
+  },
+
+  {
+    "olimorris/codecompanion.nvim",
+    opts = {},
+    cmd = { "CodeCompanion", "CodeCompanionChat", "CodeCompanionCmd", "CodeCompanionActions" },
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "nvim-treesitter/nvim-treesitter",
+      {
+        "ravitemer/mcphub.nvim",
+        build = "npm install -g mcp-hub@latest",
+        config = function()
+          require("mcphub").setup()
+        end
+      }
+    },
+    config = function()
+        require("codecompanion").setup({
+          strategies = {
+            chat = {
+              adapter = "gemini",
+            },
+            inline = {
+              adapter = "gemini",
+            },
+          },
+
+          adapters = {
+            gemini = function()
+              return require("codecompanion.adapters").extend("gemini", {
+                env = {
+                  api_key = os.getenv("GEMINI_API_KEY")
+                },
+              })
+            end,
+          },
+
+          extensions = {
+            mcphub = {
+              callback = "mcphub.extensions.codecompanion",
+              opts = {
+                show_result_in_chat = true,  -- Show mcp tool results in chat
+                make_vars = true,            -- Convert resources to #variables
+                make_slash_commands = true,  -- Add prompts as /slash commands
+              }
+            }
+          }
+        })
+
+    end
+  },
+
+  {
+    "OXY2DEV/markview.nvim",
+    lazy = false,
+    opts = {
+      preview = {
+        filetypes = { "markdown", "codecompanion" },
+        ignore_buftypes = {},
+      },
+    },
+  },
+
+  {
+    "echasnovski/mini.diff",
+    config = function()
+      local diff = require("mini.diff")
+      diff.setup({
+        -- Disabled by default
+        source = diff.gen_source.none(),
+      })
+    end,
+  },
+
+  {
+    "HakonHarnes/img-clip.nvim",
+    opts = {
+      filetypes = {
+        codecompanion = {
+          prompt_for_file_name = false,
+          template = "[Image]($FILE_PATH)",
+          use_absolute_path = true,
+        },
+      },
+    },
+  },
 }

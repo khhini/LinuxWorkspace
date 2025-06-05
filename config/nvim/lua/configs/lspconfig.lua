@@ -18,7 +18,7 @@ local servers = {
   -- Terraform
   "terraformls", "tflint", --"tfsec",
   -- Rust
-  "rust_analyzer",
+  -- "rust_analyzer",
   -- SQL
   "postgres_lsp", "sqlls",
   -- Pythom
@@ -36,17 +36,23 @@ local servers = {
   -- YAML
   "yamlls"
 }
+
 local nvlsp = require "nvchad.configs.lspconfig"
 
 -- lsps with default config
 for _, lsp in ipairs(servers) do
-  lspconfig[lsp].setup {
+  local server_config = {
     on_attach = nvlsp.on_attach,
     on_init = nvlsp.on_init,
     capabilities = nvlsp.capabilities,
-    settings = {
-      ["rust-analyzer"] = {
-        imports ={
+  }
+
+  if lsp == "rust_analyzer" then
+    -- ## Setup for rust-analyzer
+    server_config.settings = {
+      -- Note: The key is 'rust-analyzer' (with a hyphen)
+      ['rust_analyzer'] = {
+        imports = {
           prefix = "self"
         },
         cargo = {
@@ -59,14 +65,9 @@ for _, lsp in ipairs(servers) do
         procMacro = {
           enable = true,
         },
-      },
+      }
     }
-  }
-end
+  end
 
--- configuring single server, example: typescript
--- lspconfig.ts_ls.setup {
---   on_attach = nvlsp.on_attach,
---   on_init = nvlsp.on_init,
---   capabilities = nvlsp.capabilities,
--- }
+  lspconfig[lsp].setup(server_config)
+end

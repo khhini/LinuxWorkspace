@@ -26,9 +26,6 @@ map("i", "jk", "<ESC>")
 -- LazyGit
 map("n", "<leader>lg", "<cmd>LazyGit<cr>", { desc = "Open LazyGit"})
 
--- MarkdownPreview
-map("n", "<leader>tm", "<cmd>MarkdownPreviewToggle<cr>", { desc = "Toggle Markdown Preview"})
-
 -- Yazi
 map("n", "<leader>oy", "<cmd>Yazi<cr>", { desc = "Open Yazi"})
 map("n", "<leader>ty", "<cmd>Yazi toggle<cr>", { desc = "Open Yazi on current dir"})
@@ -38,3 +35,10 @@ map("n", "<leader>ty", "<cmd>Yazi toggle<cr>", { desc = "Open Yazi on current di
 map("n", "<leader>rr", "<cmd>Rest run<cr>", { desc = "Run http ceient on current cursor. Split vertical"})
 map("n", "<leader>rhr", "<cmd>hor Rest run<cr>", { desc = "Run http client on current cursor. Split horizontal"})
 map("n", "<leader>re", "<cmd>Telescope rest select_env<cr>", {desc = "Change rest-nvim env"})
+
+map( "n", "<leader>ga" , "<cmd>CodeCompanionActions<cr>", { desc = "Open CodeCompanion actions", noremap = true, silent = true })
+map( "n", "<leader>gcc" , "<cmd>CodeCompanionChat Toggle<cr>", { desc = "Open CodeCompanion chat",  noremap = true, silent = true })
+map( "v", "<leader>gca", "<cmd>CodeCompanionChat Add<cr>", { desc = "Open CodeCompanion chat with added context", noremap = true, silent = true })
+
+-- Expand 'cc' into 'CodeCompanion' in the command line
+vim.cmd([[cab cc CodeCompanion]])
