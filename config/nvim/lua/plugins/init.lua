@@ -8,6 +8,13 @@ return {
   -- These are some examples, uncomment them if you want to see them work!
   {
     "neovim/nvim-lspconfig",
+    init_options = {
+      userLanguages = {
+        eelixir = "html-eex",
+        eruby = "erb",
+        rust = "html",
+      },
+    },
     config = function()
       require "configs.lspconfig"
     end,
@@ -36,7 +43,7 @@ return {
         "sql", "promql", "dockerfile",
         "go", "graphql", "helm", "hcl",
         "angular", "todotxt", "toml", "bash",
-        "prisma"
+        "prisma", "http"
       },
 
       auto_install = true,
@@ -69,6 +76,32 @@ return {
       keymaps = {
         show_help = '<f1>',
       },
+    }
+  },
+  {
+  "khhini/markdown-preview.nvim",
+    cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
+    build = "cd app && yarn install",
+    init = function()
+      vim.g.mkdp_filetypes = { "markdown" }
+    end,
+    ft = { "markdown" },
+  },
+
+  {
+    "rest-nvim/rest.nvim",
+    cmd = { "Rest" },
+    init = function ()
+      vim.g.rest_nvim  = {}
+      require("telescope").load_extension("rest")
+    end,
+    dependencies = {
+      "nvim-treesitter/nvim-treesitter",
+      opts = function (_, opts)
+        opts.ensure_installed = opts.ensure_installed or {}
+        table.insert(opts.ensure_installed, "http")
+      end,
+      "nvim-lua/plenary.nvim"
     }
   }
 }
