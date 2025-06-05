@@ -10,9 +10,3 @@ vim.opt.number = true
 
 vim.opt.foldmethod = "indent"
 
-vim.api.nvim_create_autocmd("FileType", {
-  pattern = "terraform",
-  callback = function()
-    vim.bo.commentstring = "# %s"
-  end
-})

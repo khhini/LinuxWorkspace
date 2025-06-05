@@ -37,8 +37,8 @@ map("n", "<leader>rhr", "<cmd>hor Rest run<cr>", { desc = "Run http client on cu
 map("n", "<leader>re", "<cmd>Telescope rest select_env<cr>", {desc = "Change rest-nvim env"})
 
 map( "n", "<leader>ga" , "<cmd>CodeCompanionActions<cr>", { desc = "Open CodeCompanion actions", noremap = true, silent = true })
-map( "n", "<leader>gcc" , "<cmd>CodeCompanionChat Toggle<cr>", { desc = "Open CodeCompanion chat",  noremap = true, silent = true })
-map( "v", "<leader>gca", "<cmd>CodeCompanionChat Add<cr>", { desc = "Open CodeCompanion chat with added context", noremap = true, silent = true })
+map( "n", "<leader>gc" , "<cmd>CodeCompanionChat Toggle<cr>", { desc = "Open CodeCompanion chat",  noremap = true, silent = true })
+map( "v", "<leader>gc", "<cmd>CodeCompanionChat Add<cr>", { desc = "Open CodeCompanion chat with added context", noremap = true, silent = true })
 
 -- Expand 'cc' into 'CodeCompanion' in the command line
 vim.cmd([[cab cc CodeCompanion]])
