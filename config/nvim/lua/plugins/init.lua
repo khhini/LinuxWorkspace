@@ -46,26 +46,7 @@ return {
 
   {
     "nvim-treesitter/nvim-treesitter",
-    opts = {
-      ensure_installed = {
-        "vim", "lua", "vimdoc",
-        "html", "css", "terraform",
-        "markdown", "markdown_inline",
-        "rust", "javascript", "typescript",
-        "json", "yaml", "python",
-        "sql", "promql", "dockerfile",
-        "go", "graphql", "helm", "hcl",
-        "angular", "todotxt", "toml", "bash",
-        "prisma", "http"
-      },
-
-      auto_install = true,
-
-      highlight = {
-        enable = true
-      }
-    },
-  },
+    opts = require 'configs.treesitter'},
 
   {
     "kdheepak/lazygit.nvim",
@@ -131,38 +112,7 @@ return {
       }
     },
     config = function()
-        require("codecompanion").setup({
-          strategies = {
-            chat = {
-              adapter = "gemini",
-            },
-            inline = {
-              adapter = "gemini",
-            },
-          },
-
-          adapters = {
-            gemini = function()
-              return require("codecompanion.adapters").extend("gemini", {
-                env = {
-                  api_key = os.getenv("GEMINI_API_KEY")
-                },
-              })
-            end,
-          },
-
-          extensions = {
-            mcphub = {
-              callback = "mcphub.extensions.codecompanion",
-              opts = {
-                show_result_in_chat = true,  -- Show mcp tool results in chat
-                make_vars = true,            -- Convert resources to #variables
-                make_slash_commands = true,  -- Add prompts as /slash commands
-              }
-            }
-          }
-        })
-
+      require 'configs.codecompanion'
     end
   },
 
