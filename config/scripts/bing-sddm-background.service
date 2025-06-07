@@ -1,0 +1,10 @@
+[Unit]
+Description=UPdate SDDM Bing Picture of the Day Background
+After=network-online.target sddm.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/bin/update-sddm-bing-background.sh
+
+[Install]
+WantedBy=multi-user.target
