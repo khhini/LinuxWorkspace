@@ -24,7 +24,7 @@ require("codecompanion").setup({
         name = "gemma3",
         schema ={
           model = {
-            default = "gemma3:1b",
+            default = "gemma3:latest",
           }
         }
       })
