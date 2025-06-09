@@ -4,10 +4,10 @@ spinner:init()
 require("codecompanion").setup({
   strategies = {
     chat = {
-      adapter = "gemini",
+      adapter = "gemma3",
     },
     inline = {
-      adapter = "gemini",
+      adapter = "gemma3",
     },
   },
 
@@ -19,6 +19,16 @@ require("codecompanion").setup({
         },
       })
     end,
+    gemma3 = function ()
+      return require("codecompanion.adapters").extend("ollama", {
+        name = "gemma3",
+        schema ={
+          model = {
+            default = "gemma3:1b",
+          }
+        }
+      })
+    end
   },
 
   extensions = {
