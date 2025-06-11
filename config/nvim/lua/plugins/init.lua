@@ -97,19 +97,24 @@ return {
   },
 
   {
+    "ravitemer/mcphub.nvim",
+    dependencies = {
+        "nvim-lua/plenary.nvim",
+    },
+    build = "npm install -g mcp-hub@latest",  -- Installs `mcp-hub` node binary globally
+    config = function()
+        require("mcphub").setup()
+    end
+  },
+
+  {
     "olimorris/codecompanion.nvim",
     opts = {},
     cmd = { "CodeCompanion", "CodeCompanionChat", "CodeCompanionCmd", "CodeCompanionActions" },
     dependencies = {
       "nvim-lua/plenary.nvim",
       "nvim-treesitter/nvim-treesitter",
-      {
-        "ravitemer/mcphub.nvim",
-        build = "npm install -g mcp-hub@latest",
-        config = function()
-          require("mcphub").setup()
-        end
-      }
+      "ravitemer/mcphub.nvim",
     },
     config = function()
       require 'configs.codecompanion'

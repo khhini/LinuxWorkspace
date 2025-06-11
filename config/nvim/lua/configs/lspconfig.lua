@@ -20,7 +20,7 @@ local servers = {
   -- Rust
   -- "rust_analyzer",
   -- SQL
-  "postgres_lsp", "sqlls",
+  "sqlls",
   -- Pythom
   "pyright", "ruff",
   -- Docker
