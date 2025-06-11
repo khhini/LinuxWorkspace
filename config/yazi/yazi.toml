@@ -1,0 +1,4 @@
+[opener]
+open = [
+  { run = 'ghostty --working-directory=="$@"', desc = "Open in terminal"}
+]
